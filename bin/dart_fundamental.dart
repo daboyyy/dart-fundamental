@@ -108,4 +108,53 @@ void main() {
   arrX2[0] = 10;
   // arrX2 = [10,2,3]
   // arrY2 = [1,2,3]
+
+  // eum
+  var date = Days.monday;
+
+  // nullable type (normally require non-nullable)
+  // int? xx;
+  // if (xx == null) return
+
+  // ternary operator
+  var ternary = false;
+  var ternaryResult = ternary != false ? ternary : 0;
+
+  // function
+  getHello('Bond', 18);
+  getHello2(
+    age: 18,
+    name: 'Bond',
+  );
+  getHello3('Bond', age: 18);
+  var helloText = sayHello(age: 18, name: 'Bond');
+  print(helloText);
+
+  // new type
+  Calculator f = (int a, int b) => a + b;
 }
+
+// enum
+enum Days { // types pascal case, value lower case
+  monday,
+  tuesday,
+  wednesday,
+}
+
+// function
+void getHello(String name, int age) {
+  print('Hello $name age $age');
+}
+void getHello2({ String name, int age = 0 }) {
+  print('Hello $name age $age');
+}
+void getHello3(String name, { int age }) {
+  print('Hello $name age $age');
+}
+String sayHello({ String name, int age }) => 'Hello $name age $age'; // fat arrow return in 1 line
+
+// new type
+typedef Calculator = int Function(int, int); // a type that receive 2 int and return 1 int
+
+// class
+
