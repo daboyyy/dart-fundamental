@@ -132,6 +132,38 @@ void main() {
 
   // new type
   Calculator f = (int a, int b) => a + b;
+
+  // class
+  final account = BankAccount(
+    name: 'Jone',
+    balance: 500,
+  );
+  final account2 = BankAccount.zero('Bond');
+  final account3 = BankAccount2.zero('Bond');
+  print(account3.name);
+  account3.deposit(100);
+  print(account3.balance);
+  // account3.name = 0; (this will be error)
+
+  // class inheritance
+  final inheritance = IronMan();
+  inheritance.walk();
+  inheritance.fly();
+  // final inheritance2 = Human(); (abstract class can't be instance but can extends)
+
+  // class polymorphism
+  Human hulk = Hulk();
+  Human ironman = IronMan();
+
+  final avengers = <Human>[IronMan(), Hulk()];
+  for (var avenger in avengers) {
+    avenger.walk(); // can use only human func
+    if (avenger is IronMan) {
+      avenger.fly();
+    } else if (avenger is Hulk) {
+      avenger.jump();
+    }
+  }
 }
 
 // enum
@@ -157,4 +189,70 @@ String sayHello({ String name, int age }) => 'Hello $name age $age'; // fat arro
 typedef Calculator = int Function(int, int); // a type that receive 2 int and return 1 int
 
 // class
+class BankAccount { // pascal case for className
+  String name; // private variable can use only in file scope
+  double balance;
+  String _privateVar; // private variable can use only in file scope
 
+  BankAccount({ this.name, this.balance });
+  // force balance = 0 receive only name
+  BankAccount.zero(this.name) : balance = 0;
+}
+
+class BankAccount2 {
+  String _name;
+  String get name => _name;
+
+  double _balance;
+  double get balance => _balance;
+
+  BankAccount2(this._name, this._balance);
+  // force balance = 0 receive only name
+  BankAccount2.zero(this._name) : _balance = 0;
+
+  void deposit(double amount) => _balance += amount;
+  bool withDraw(double amount) {
+    if (amount > _balance) return false;
+
+    _balance -= amount;
+    return true;
+  }
+}
+
+// class inheritance & polymorphism
+abstract class Human {
+  void hello() => print('hello');
+  void speak();
+  void walk() => print('human walk');
+}
+class IronMan extends Human {
+  void fly() => print('fly');
+
+  @override
+  void speak() => print('speak');
+
+  @override
+  void walk() => print('ironman walk');
+}
+class IronManWithoutSuit implements Human {
+  @override
+  void hello() {
+    // TODO: implement hello
+  }
+
+  @override
+  void speak() {
+    // TODO: implement speak
+  }
+
+  @override
+  void walk() {
+    // TODO: implement walk
+  }
+}
+class Hulk extends Human {
+  @override
+  void speak() => print('speak');
+
+  void jump() => print('jump');
+}
